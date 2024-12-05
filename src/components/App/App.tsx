@@ -1,9 +1,10 @@
-import { Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { LINK_PATH } from "../../constants";
-import Home from "../../pages/Home/Home";
-import Tasks from "../../pages/Tasks/Tasks";
-import Contacts from "../../pages/Contacts/Contacts";
+
+const Contacts = lazy(() => import("../../pages/Contacts/Contacts"));
+const Tasks = lazy(() => import("../../pages/Tasks/Tasks"));
+const Home = lazy(() => import("../../pages/Home/Home"));
 
 function App() {
   return (
