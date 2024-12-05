@@ -25,7 +25,7 @@ const myTheme: DefaultTheme = {
       #484848 58.63%,
       #282828 98.63%
       );`,
-    mainBlack: "rgba(0, 0, 0, 1)",
+    mainBlack: "#1a1c21",
     lightBlack: "rgba(57, 57, 57, 1)",
     peach: "rgba(251, 215, 178, 1)",
     lightPeach: "rgba(224, 164, 73, 1)",
