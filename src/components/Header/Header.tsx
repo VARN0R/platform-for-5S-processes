@@ -9,10 +9,11 @@ import {
 } from "./Header.styles";
 import images from "../../assets/images";
 import Container from "../Container/index";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const location = useLocation();
 
   return (
     <HeaderStyled>
@@ -29,8 +30,20 @@ export const Header: React.FC = () => {
             <span></span>
           </Hamburger>
           <Nav open={menuOpen}>
-            <LinkStyled to="/tasks">TASKS</LinkStyled>
-            <LinkStyled to="/contacts">CONTACTS</LinkStyled>
+            <LinkStyled
+              to="/tasks"
+              className={location.pathname.includes("/tasks") ? "active" : ""}
+            >
+              TASKS
+            </LinkStyled>
+            <LinkStyled
+              to="/contacts"
+              className={
+                location.pathname.includes("/contacts") ? "active" : ""
+              }
+            >
+              CONTACTS
+            </LinkStyled>
           </Nav>
         </HeaderWrapper>
       </Container>

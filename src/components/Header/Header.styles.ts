@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { BREAKPOINTS } from "../../constants";
-import LinkProps from "../../types/link-props";
 import HamburgerProps from "../../types/hamburger-props";
+import NavProps from "../../types/nav-props";
 
 export const LinksContainer = styled.div`
   display: flex;
@@ -27,7 +27,7 @@ export const HeaderStyled = styled.header`
   }
 `;
 
-export const Nav = styled.nav<LinkProps>`
+export const Nav = styled.nav<NavProps>`
   display: flex;
   margin-left: 100px;
   a {
@@ -68,6 +68,11 @@ export const LinkStyled = styled(Link)`
   text-decoration: none;
   margin-left: 29px;
   width: 100%;
+
+  &.active {
+    color: ${({ theme }) => theme.colors.orange};
+    font-weight: bold;
+  }
   @media (max-width: ${BREAKPOINTS.sm}) {
     font-size: ${(props) => props.theme.fontSizes.extraLarge};
     margin-left: 0px;
