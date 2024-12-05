@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import {
+  Hamburger,
   HeaderStyled,
   HeaderWrapper,
   LinkStyled,
@@ -11,6 +12,8 @@ import Container from "../Container/index";
 import { Link } from "react-router-dom";
 
 export const Header: React.FC = () => {
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+
   return (
     <HeaderStyled>
       <Container>
@@ -20,8 +23,12 @@ export const Header: React.FC = () => {
               <img src={images.logo} alt="logo header" />
             </Link>
           </Logo>
-
-          <Nav>
+          <Hamburger open={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </Hamburger>
+          <Nav open={menuOpen}>
             <LinkStyled to="/tasks">TASKS</LinkStyled>
             <LinkStyled to="/contacts">CONTACTS</LinkStyled>
           </Nav>
