@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Button,
   FormDescr,
@@ -21,26 +21,35 @@ export const Form: React.FC = () => {
     message: false,
   });
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-    if (errors.name) {
-      setErrors((prev) => ({ ...prev, name: false }));
-    }
-  };
+  const handleNameChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setName(e.target.value);
+      if (errors.name) {
+        setErrors((prev) => ({ ...prev, name: false }));
+      }
+    },
+    [errors.name]
+  );
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-    if (errors.email) {
-      setErrors((prev) => ({ ...prev, email: false }));
-    }
-  };
+  const handleEmailChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setEmail(e.target.value);
+      if (errors.email) {
+        setErrors((prev) => ({ ...prev, email: false }));
+      }
+    },
+    [errors.email]
+  );
 
-  const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setMessage(e.target.value);
-    if (errors.message) {
-      setErrors((prev) => ({ ...prev, message: false }));
-    }
-  };
+  const handleMessageChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setMessage(e.target.value);
+      if (errors.message) {
+        setErrors((prev) => ({ ...prev, message: false }));
+      }
+    },
+    [errors.message]
+  );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
