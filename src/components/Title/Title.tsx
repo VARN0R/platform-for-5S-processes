@@ -1,4 +1,3 @@
-import Container from "../Container";
 import { TitleStyled } from "./Title.styles";
 
 const Title = () => {

@@ -1,4 +1,3 @@
-import images from "../../assets/images";
 import video from "../../assets/video";
 import Container from "../Container";
 import { Line } from "../Line/index";
