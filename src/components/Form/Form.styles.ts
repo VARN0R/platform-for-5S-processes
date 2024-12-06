@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { BREAKPOINTS } from "../../constants";
+import FormFieldsProps from "../../types/form-errors";
 
 export const FormStyled = styled.form`
   width: 600px;
@@ -13,12 +14,14 @@ export const FormStyled = styled.form`
   }
 `;
 
-const sharedStyles = css`
+const sharedStyles = css<FormFieldsProps>`
   font-size: ${(props) => props.theme.fontSizes.large};
   margin-bottom: 1rem;
   padding: 0.75rem;
   border: none;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.lightGray};
+  border-bottom: 1px solid
+    ${({ $isError, theme }) =>
+      $isError ? theme.colors.red : theme.colors.lightGray};
   border-radius: 4px;
   outline: none;
   background: ${({ theme }) => theme.colors.mainBlack};
@@ -43,11 +46,11 @@ const sharedStyles = css`
   }
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<FormFieldsProps>`
   ${sharedStyles}
 `;
 
-export const Textarea = styled.textarea`
+export const Textarea = styled.textarea<FormFieldsProps>`
   ${sharedStyles}
   resize: none;
 `;
@@ -127,3 +130,6 @@ export const FormWrapper = styled.div`
   @media (max-width: ${BREAKPOINTS.sm}) {
   }
 `;
+
+Input.shouldForwardProp = (prop) => prop !== "isError";
+Textarea.shouldForwardProp = (prop) => prop !== "isError";

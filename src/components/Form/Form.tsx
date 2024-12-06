@@ -15,13 +15,50 @@ export const Form: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [errors, setErrors] = useState({
+    name: false,
+    email: false,
+    message: false,
+  });
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+    if (errors.name) {
+      setErrors((prev) => ({ ...prev, name: false }));
+    }
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    if (errors.email) {
+      setErrors((prev) => ({ ...prev, email: false }));
+    }
+  };
+
+  const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(e.target.value);
+    if (errors.message) {
+      setErrors((prev) => ({ ...prev, message: false }));
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ name, email, message });
-    setName("");
-    setEmail("");
-    setMessage("");
+
+    const newErrors = {
+      name: !name.trim(),
+      email: !email.trim(),
+      message: !message.trim(),
+    };
+
+    setErrors(newErrors);
+
+    if (!newErrors.name && !newErrors.email && !newErrors.message) {
+      console.log({ name, email, message });
+      setName("");
+      setEmail("");
+      setMessage("");
+    }
   };
 
   return (
@@ -42,24 +79,24 @@ export const Form: React.FC = () => {
             type="text"
             placeholder="Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
+            onChange={handleNameChange}
+            $isError={errors.name}
           />
           <Input
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            onChange={handleEmailChange}
+            $isError={errors.email}
           />
           <Label htmlFor="message">MESSAGE</Label>
           <Textarea
             id="message"
             placeholder="Enter your message"
             value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={handleMessageChange}
             rows={5}
-            required
+            $isError={errors.message}
           />
           <Button type="submit">SUBMIT</Button>
         </FormStyled>
