@@ -11,4 +11,6 @@ const LINK_PATH = {
   CONTACTS: "/contacts",
 };
 
-export { BREAKPOINTS, LINK_PATH };
+const TASKS_KEY = "tasks";
+
+export { BREAKPOINTS, LINK_PATH, TASKS_KEY };

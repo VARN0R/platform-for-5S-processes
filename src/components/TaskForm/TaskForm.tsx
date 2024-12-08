@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TaskFormProps from "../../types/task-form-props";
 import { Task } from "../../types/task";
 import {
@@ -12,16 +12,37 @@ import {
   ModalButton,
 } from "./TaskForm.style";
 
-export const TaskForm: React.FC<TaskFormProps> = ({ onAddTask }) => {
-  const [name, setName] = useState("");
-  const [status, setStatus] = useState("New");
-  const [date, setDate] = useState("");
+export const TaskForm: React.FC<TaskFormProps> = ({
+  onAddTask,
+  nameButton,
+  taskName,
+  taskStatus,
+  taskDate,
+  taskId,
+}) => {
+  const [name, setName] = useState<string>(() => taskName || "");
+  const [status, setStatus] = useState(() => taskStatus || "New");
+  const [date, setDate] = useState(() => taskDate || "");
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (taskId) {
+      setIsModalOpen(true);
+    } else {
+      setIsModalOpen(false);
+    }
+  }, [taskId]);
+
+  useEffect(() => {
+    setName(taskName || "");
+    setStatus(taskStatus || "New");
+    setDate(taskDate || "");
+  }, [taskName, taskStatus, taskDate]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const newTask: Task = {
-      id: Date.now(),
+      id: taskId || Date.now(),
       name,
       status,
       createdAt: date,
@@ -43,7 +64,9 @@ export const TaskForm: React.FC<TaskFormProps> = ({ onAddTask }) => {
 
   return (
     <>
-      <ModalButton onClick={() => setIsModalOpen(true)}>Add task</ModalButton>
+      {!taskId && (
+        <ModalButton onClick={() => setIsModalOpen(true)}>Add task</ModalButton>
+      )}
 
       {isModalOpen && (
         <ModalOverlay onClick={handleOverlayClick}>
@@ -71,7 +94,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ onAddTask }) => {
                 onChange={(e) => setDate(e.target.value)}
                 required
               />
-              <Button type="submit">Add</Button>
+              <Button type="submit">{nameButton}</Button>
             </FormStyled>
           </ModalContent>
         </ModalOverlay>

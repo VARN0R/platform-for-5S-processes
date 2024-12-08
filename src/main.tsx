@@ -8,8 +8,7 @@ import { myTheme } from "./styles/myTheme.ts";
 createRoot(document.getElementById("root")!).render(
   <ThemeProvider theme={myTheme}>
     <GlobalStyles />
-    <StrictMode>
-      <App />
-    </StrictMode>
+
+    <App />
   </ThemeProvider>
 );

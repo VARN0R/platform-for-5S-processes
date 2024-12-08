@@ -66,6 +66,7 @@ export const Button = styled.button`
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s;
+  height: 40px;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.mainBlack};
