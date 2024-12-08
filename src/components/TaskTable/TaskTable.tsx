@@ -80,7 +80,24 @@ export const TaskTable: React.FC = () => {
     if (file) {
       const text = await file.text();
       const importedTasks = JSON.parse(text) as Task[];
-      setTasks(importedTasks);
+
+      setTasks((prevTasks) => {
+        const updatedTasks = [...prevTasks];
+
+        importedTasks.forEach((importedTask) => {
+          const existingTaskIndex = updatedTasks.findIndex(
+            (task) => task.id === importedTask.id
+          );
+
+          if (existingTaskIndex !== -1) {
+            updatedTasks[existingTaskIndex] = importedTask;
+          } else {
+            updatedTasks.push(importedTask);
+          }
+        });
+
+        return updatedTasks;
+      });
     }
   };
 
